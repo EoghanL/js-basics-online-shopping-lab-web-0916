@@ -5,23 +5,23 @@ function setCart(newCart) {
 }
 
 function total() {
-  let t = 0
+   let t = 0
 
-  for (var i = 0, l = cart.length; i < l; i++) {
-    for (var item in cart[i]) {
-      return NaN
-    }
+   for (var i = 0, l = cart.length; i < l; i++) {
+     for (var item in cart[i]) {
+       t += cart[i][item]
+     }
+   }
+
+    return t
   }
-
-  return t
-}
 
 function getCart(){
   return cart
 }
 
 function addToCart(item){
-  cart.push(item);
+  cart.push({[item]: Math.floor(Math.random() * 100)});
   console.log(`${item} has been added to your cart.`);
   return cart;
 }
@@ -33,10 +33,11 @@ function viewCart(){
   }
   else{
     for(let i = 0; i < cart.length; i++){
-      str += ` ${cart[i]} at $undefined,`
+      str += ` ${Object.keys(cart[i])} at $${cart[i][Object.keys(cart[i])]},`
     }
     console.log(str.slice(0, str.length-1) + ".");
   }
+  return cart
 }
 
 function removeFromCart(item){
@@ -55,7 +56,7 @@ function placeOrder(cc_num){
     console.log("We don't have a credit card on file for you to place your order.")
   }
   else{
-    console.log(`Your total cost is $NaN, which will be charged to the card ${cc_num}.`)
+    console.log(`Your total cost is $${total()}, which will be charged to the card ${cc_num}.`)
     cart = [];
   }
 }
